@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Home,
   Info,
@@ -14,21 +12,22 @@ import {
   ChevronRight,
   User,
 } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
-import { useTheme } from "next-themes";
+
 import { ThemeToggle } from "./ThemeToggle";
 
 export default function Nav() {
   const { data: session } = useSession();
   const [collapsed, setCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   const toggleMenu = () => setCollapsed(!collapsed);
 
@@ -55,7 +54,7 @@ export default function Nav() {
           </Button>
 
           {session ? (
-            <Button variant="ghost" onClick={() => signOut()} className="justify-start w-full">
+            <Button variant="ghost" onClick={() => signOut({ callbackUrl: "/" })} className="justify-start w-full">
               <LogOut className="w-5 h-5" />
               {!collapsed && <span className="ml-3">Sign Out</span>}
             </Button>
